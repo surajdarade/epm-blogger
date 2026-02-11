@@ -1,0 +1,33 @@
+name: Build and deploy ASP.Net Core app to Azure Web App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # Setup .NET
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      # Restore server
+      - name: Restore
+        run: dotnet restore ./server
+
+      # Publish server
+      - name: Publish
+        run: dotnet publish ./server -c Release -o publish
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dotnet-app
+          path: publish
