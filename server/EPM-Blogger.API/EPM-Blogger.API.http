@@ -1,0 +1,6 @@
+@EPM_Blogger.API_HostAddress = http://localhost:5083
+
+GET {{EPM_Blogger.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

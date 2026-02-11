@@ -1,0 +1,52 @@
+<div class="container mt-5">
+
+  <!-- Profile Card -->
+  <div class="card profile-card shadow-lg border-0 p-4">
+
+    <div class="row align-items-center">
+
+      <!-- Profile Picture -->
+      <div class="col-12 col-md-3 text-center mb-3 mb-md-0">
+        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde"
+             alt="Profile Picture"
+             class="rounded-circle border border-3 border-primary shadow profile-avatar"
+             width="140" height="140">
+      </div>
+
+      <!-- User Info -->
+      <div class="col-12 col-md-6 text-center text-md-start">
+        <h3 class="fw-bold text-dark mb-2 d-flex align-items-center justify-content-center justify-content-md-start">
+          <i class="bi bi-person-circle me-2 text-primary"></i>
+          {{ user.username }}
+        </h3>
+
+        <p class="text-muted mb-2 d-flex align-items-center justify-content-center justify-content-md-start">
+          <i class="bi bi-envelope-fill me-2 text-secondary"></i>
+          {{ user.email }}
+        </p>
+
+        <div class="small text-muted d-flex align-items-center justify-content-center justify-content-md-start">
+          <i class="bi bi-calendar3 me-2 text-success"></i>
+          Joined on {{ user.createdAt | date:'MMMM d, y' }}
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="col-12 col-md-3 d-flex justify-content-center justify-content-md-end mt-3 mt-md-0 gap-2">
+        <button class="btn btn-outline-primary d-flex align-items-center">
+          <i class="bi bi-pencil-square me-2"></i> Edit
+        </button>
+        <button class="btn btn-outline-danger d-flex align-items-center">
+          <i class="bi bi-box-arrow-right me-2"></i> Logout
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Divider -->
+  <h3 class="text-center bg-light py-2 rounded mt-4 mb-3 shadow-sm">Your Posts</h3>
+
+  <!-- User Posts Component -->
+  <app-user-posts [userId]="1"></app-user-posts>
+</div>

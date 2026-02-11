@@ -1,0 +1,57 @@
+-- Create Database
+CREATE DATABASE EPDatabase;
+GO
+
+USE EPDatabase;
+GO
+
+-- Users Table
+CREATE TABLE Users (
+    UserId INT IDENTITY(1,1) PRIMARY KEY,
+    Username NVARCHAR(100) NOT NULL UNIQUE,
+    Email NVARCHAR(150) NOT NULL UNIQUE,
+    PasswordHash NVARCHAR(255) NOT NULL,
+    CreatedAt DATETIME DEFAULT GETDATE()
+);
+
+-- Posts Table
+CREATE TABLE Posts (
+    PostId INT IDENTITY(1,1) PRIMARY KEY,
+    UserId INT NOT NULL,
+    Title NVARCHAR(200) NOT NULL,
+    Content NVARCHAR(MAX) NOT NULL,
+    CreatedAt DATETIME DEFAULT GETDATE(),
+    UpdatedAt DATETIME NULL,
+    CONSTRAINT FK_Posts_Users FOREIGN KEY (UserId)
+        REFERENCES Users(UserId) ON DELETE CASCADE
+);
+
+-- Likes Table
+CREATE TABLE Likes (
+    LikeId INT IDENTITY(1,1) PRIMARY KEY,
+    UserId INT NOT NULL,
+    PostId INT NOT NULL,
+    CreatedAt DATETIME DEFAULT GETDATE(),
+    CONSTRAINT FK_Likes_Users FOREIGN KEY (UserId)
+        REFERENCES Users(UserId) ON DELETE NO ACTION, -- avoids multiple cascade paths
+    CONSTRAINT FK_Likes_Posts FOREIGN KEY (PostId)
+        REFERENCES Posts(PostId) ON DELETE CASCADE,
+    CONSTRAINT UQ_User_Post_Like UNIQUE (UserId, PostId) -- 1 like per user per post
+);
+
+-- Tags Table
+CREATE TABLE Tags (
+    TagId INT IDENTITY(1,1) PRIMARY KEY,
+    Name NVARCHAR(50) NOT NULL UNIQUE
+);
+
+-- PostTags Table (Many-to-Many)
+CREATE TABLE PostTags (
+    PostId INT NOT NULL,
+    TagId INT NOT NULL,
+    CONSTRAINT FK_PostTags_Posts FOREIGN KEY (PostId)
+        REFERENCES Posts(PostId) ON DELETE CASCADE,
+    CONSTRAINT FK_PostTags_Tags FOREIGN KEY (TagId)
+        REFERENCES Tags(TagId) ON DELETE CASCADE,
+    CONSTRAINT PK_PostTags PRIMARY KEY (PostId, TagId)
+);

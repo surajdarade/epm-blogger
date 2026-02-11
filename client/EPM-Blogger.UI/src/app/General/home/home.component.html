@@ -1,0 +1,39 @@
+<div class="container-fluid p-0 mb-4 bg-primary">
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4 py-2">
+
+    <!-- Brand / Logo -->
+    <a class="navbar-brand d-flex align-items-center fw-bold" href="/">
+        <i class="bi bi-journal-text fs-3 text-primary me-2"></i>
+      EPM-Blogger
+    </a>
+
+    <!-- Centered Feed Link -->
+    <ul class="navbar-nav mx-auto mb-0 d-none d-lg-flex">
+      <li class="nav-item">
+        <a class="nav-link active fw-medium" aria-current="page" href="/posts">
+          <i class="bi bi-house-door-fill me-1"></i> Feed
+        </a>
+      </li>
+    </ul>
+
+    <!-- Right Side -->
+    <div class="d-flex align-items-center gap-3">
+
+      <!-- Create Post -->
+      <a href="/posts/new" class="btn btn-success d-flex align-items-center justify-content-center px-3 py-2 rounded">
+        <i class="bi bi-plus-circle me-1 fs-5"></i> Create
+      </a>
+
+      <!-- User Greeting (hidden on small screens) -->
+      <span class="d-none d-md-inline text-muted">👋 Hola, {{ getUserName() }}</span>
+
+      <!-- Profile Icon -->
+      <a href="/user" class="btn btn-outline-primary rounded-circle d-flex align-items-center justify-content-center"
+         style="width: 40px; height: 40px;">
+        <i class="bi bi-person-circle fs-5"></i>
+      </a>
+    </div>
+
+    <hr>
+  </nav>
+</div>

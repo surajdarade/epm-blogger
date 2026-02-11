@@ -1,0 +1,24 @@
+<div class="container mt-5 ">
+  <div class="card shadow-sm border-0 mx-auto" style="max-width: 700px;">
+    <div class="card-body p-4">
+      <h3 class="fw-bold mb-4 text-center text-dark">Create New Post</h3>
+
+      <form [formGroup]="postForm" (ngSubmit)="submitPost()">
+
+        <div class="mb-3">
+          <label class="form-label">Title</label>
+          <input type="text" formControlName="title" class="form-control" placeholder="Enter post title">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Content</label>
+          <textarea formControlName="content" class="form-control" rows="6" placeholder="Write your post..."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success" [disabled]="postForm.invalid">
+          <i class="bi bi-plus-circle me-1"></i> Create Post
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

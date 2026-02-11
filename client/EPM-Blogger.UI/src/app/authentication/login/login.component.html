@@ -1,0 +1,40 @@
+<div class="container mt-5" style="max-width: 400px;">
+  <h3 class="mb-3 text-center">Login</h3>
+
+  <form (ngSubmit)="onSubmit()" #loginForm="ngForm" novalidate class="form-control p-7 ">
+    
+    <!-- Email -->
+    <div class="mb-3">
+      <label for="UsernameOrEmail" class="form-label">Username Or Email</label>
+      <input type="email" 
+             id="UsernameOrEmail" 
+             class="form-control" 
+             [(ngModel)]="loginData.UsernameOrEmail" 
+             name="UsernameOrEmail"
+             required
+             placeholder="Enter your email or User name">
+    </div>
+
+    <!-- Password -->
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input type="password" 
+             id="password" 
+             class="form-control" 
+             [(ngModel)]="loginData.password" 
+             name="password"
+             required
+             placeholder="Enter your password">
+    </div>
+
+    <!-- Error message -->
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+
+    <!-- Submit button -->
+    <button type="submit" class="btn btn-outline-success w-100" [disabled]="loading">
+      {{ loading ? 'Logging in...' : 'Login' }}
+    </button>
+  </form>
+</div>

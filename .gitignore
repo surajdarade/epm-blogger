@@ -1,0 +1,60 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Tt]emp/
+
+# Rider / JetBrains
+.idea/
+*.iml
+
+# NuGet
+*.nupkg
+*.snupkg
+# Packages folder can be restored
+packages/
+*.nuget.props
+*.nuget.targets
+
+# Backup / Crash files
+*.bak
+*.swp
+*.tmp
+*.pidb
+*.svclog
+
+# Publish outputs
+publish/
+out/
+artifacts/
+
+# Resharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# Test results
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+
+# Azure functions local settings
+local.settings.json
+
+# macOS junk
+.DS_Store
+
+# Windows junk
+Thumbs.db
+ehthumbs.db
+
+
+/backend/EPM-Blogger.API/Properties/
