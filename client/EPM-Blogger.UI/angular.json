@@ -33,7 +33,7 @@
           "configurations": {
             "production": {
               "outputPath": {
-                "base": "dist/epm-blogger.ui/browser"
+                "base": "dist/epm-blogger.ui"
               },
               "optimization": true,
               "extractLicenses": true,
