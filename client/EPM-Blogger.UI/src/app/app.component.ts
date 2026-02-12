@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { Router, NavigationEnd, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs';
 import { HomeComponent } from './General/home/home.component';
@@ -9,7 +9,7 @@ import { HomeComponent } from './General/home/home.component';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   standalone: true,
-  imports: [RouterOutlet, CommonModule, HomeComponent]
+  imports: [RouterOutlet, HomeComponent]
 })
 export class AppComponent implements OnInit {
   showHome = true;

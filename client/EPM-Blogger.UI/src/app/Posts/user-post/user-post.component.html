@@ -1,113 +1,109 @@
-<div *ngIf="posts.length > 0; else noPosts" class="posts-container">
-  <div *ngFor="let post of posts" class="post-card card shadow-sm border-0 mb-4">
-    <!-- Post Header -->
-    <div class="post-header card-header bg-white border-0 py-3 px-4">
-      <div class="d-flex justify-content-between align-items-center">
-        <!-- User Info -->
-        <div class="d-flex align-items-center">
-          <div class="position-relative me-3">
-            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde" class="rounded-circle user-avatar"
-              alt="Author" width="50" height="50">
-            <span class="position-absolute bottom-0 end-0 bg-success border border-2 border-white rounded-circle"
-              style="width: 12px; height: 12px;"></span>
-          </div>
-          <div>
-            <h6 class="mb-1 fw-semibold text-dark">{{ userMap[post.userId] || 'Loading...' }}</h6>
-            <div class="text-muted small">
-              <div><i class="bi bi-calendar3 me-1"></i>Published {{ post.createdAt | date:'MMM d, y' }}</div>
-              <div *ngIf="post.updatedAt !== post.createdAt" class="fst-italic">
-                <i class="bi bi-pencil me-1"></i>Edited {{ post.updatedAt | date:'MMM d, y' }}
+@if (posts.length > 0) {
+  <div class="posts-container">
+    @for (post of posts; track post) {
+      <div class="post-card card shadow-sm border-0 mb-4">
+        <!-- Post Header -->
+        <div class="post-header card-header bg-white border-0 py-3 px-4">
+          <div class="d-flex justify-content-between align-items-center">
+            <!-- User Info -->
+            <div class="d-flex align-items-center">
+              <div class="position-relative me-3">
+                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde" class="rounded-circle user-avatar"
+                  alt="Author" width="50" height="50">
+                  <span class="position-absolute bottom-0 end-0 bg-success border border-2 border-white rounded-circle"
+                  style="width: 12px; height: 12px;"></span>
+                </div>
+                <div>
+                  <h6 class="mb-1 fw-semibold text-dark">{{ userMap[post.userId] || 'Loading...' }}</h6>
+                  <div class="text-muted small">
+                    <div><i class="bi bi-calendar3 me-1"></i>Published {{ post.createdAt | date:'MMM d, y' }}</div>
+                    @if (post.updatedAt !== post.createdAt) {
+                      <div class="fst-italic">
+                        <i class="bi bi-pencil me-1"></i>Edited {{ post.updatedAt | date:'MMM d, y' }}
+                      </div>
+                    }
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Post Actions -->
-        <div class="d-flex align-items-center gap-2">
-          <span class="text-primary fw-semibold">{{ likeCounts[post.id] || 0 }}</span>
-
-          <!-- Like Button -->
+              <!-- Post Actions -->
+              <div class="d-flex align-items-center gap-2">
+                <span class="text-primary fw-semibold">{{ likeCounts[post.id] || 0 }}</span>
+                <!-- Like Button -->
           <button class="btn btn-sm d-flex align-items-center" [ngClass]="{
               'btn-danger': isLiked(post.id),
               'btn-outline-danger': !isLiked(post.id)
             }" (click)="toggleLike(post.id)">
-            <i class="bi me-1" [ngClass]="isLiked(post.id) ? 'bi-heart-fill' : 'bi-heart'"></i>
-            <span class="d-none d-md-inline">Like</span>
-          </button>
+                  <i class="bi me-1" [ngClass]="isLiked(post.id) ? 'bi-heart-fill' : 'bi-heart'"></i>
+                  <span class="d-none d-md-inline">Like</span>
+                </button>
+                <!-- View Button -->
+                <a [routerLink]="['/posts', post.id]" class="btn btn-outline-primary btn-sm d-flex align-items-center">
+                  <i class="bi bi-eye me-1"></i>
+                  <span class="d-none d-md-inline">View</span>
+                </a>
+                <!-- Share Button -->
+                <button class="btn btn-outline-secondary btn-sm d-flex align-items-center" (click)="sharePost(post.id)">
+                  <i class="bi bi-share me-1"></i>
+                  <span class="d-none d-md-inline">Share</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- Post Content -->
+          <div class="post-content card-body py-4 px-4">
+            <h4 class="card-title fw-bold mb-3 text-dark">{{ post.title }}</h4>
+            <p class="card-text text-dark mb-3 lh-lg">
+              {{ getPreview(post.content, 200) }}
+              @if (isLongContent(post.content, 200)) {
+                <a href="javascript:void(0)"
+                  (click)="openPostDetail(post.id)"
+                class="text-primary fw-semibold ms-1">Read More</a>
+              }
+            </p>
+            <!-- Tags -->
+            <div class="mb-2 font-size-1">
+              <span class="badge rounded-pill bg-success text-dark me-2 mb-2 px-3 py-2">#WebDev</span>
+              <span class="badge rounded-pill bg-primary text-dark me-2 mb-2 px-3 py-2">#Technology</span>
+              <span class="badge rounded-pill bg-danger text-dark me-2 mb-2 px-3 py-2">#Programming</span>
+              <span class="badge rounded-pill bg-warning text-dark me-2 mb-2 px-3 py-2">#Angular</span>
+            </div>
+          </div>
+          <!-- Tooltip -->
+          <div class="copy-tooltip small text-success text-center fw-semibold py-2 bg-light" [id]="'tooltip-' + post.id"
+            style="display: none;">
+            <i class="bi bi-check-circle-fill me-1"></i>Link copied to clipboard!
+          </div>
+        </div>
+      }
+    </div>
+  } @else {
+    <div class="text-center my-5 py-5">
+      <div class="mb-4">
+        <i class="bi bi-file-text display-4 text-light bg-secondary rounded-circle p-4"></i>
+      </div>
+      <h4 class="fw-semibold text-dark mb-2">No posts yet</h4>
+      <p class="text-muted mb-4">No Post Yet</p>
+    </div>
+  }
 
-          <!-- View Button -->
-          <a [routerLink]="['/posts', post.id]" class="btn btn-outline-primary btn-sm d-flex align-items-center">
-            <i class="bi bi-eye me-1"></i>
-            <span class="d-none d-md-inline">View</span>
-          </a>
 
-          <!-- Share Button -->
-          <button class="btn btn-outline-secondary btn-sm d-flex align-items-center" (click)="sharePost(post.id)">
-            <i class="bi bi-share me-1"></i>
-            <span class="d-none d-md-inline">Share</span>
-          </button>
+  <!-- Post Detail Modal -->
+  @if (selectedPostId) {
+    <div class="modal fade show d-block">
+      <!-- Backdrop (click to close) -->
+      <div class="modal-backdrop fade show"
+        style="background: rgba(0,0,0,0.6);"
+      (click)="closePostDetail()"></div>
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg position-relative">
+          <!-- Floating Close Icon -->
+          <button type="button"
+            class="btn-close position-absolute top-0 end-0 m-3"
+            aria-label="Close"
+          (click)="closePostDetail()"></button>
+          <!-- Render detail component -->
+          <app-detail [postId]="selectedPostId" (close)="closePostDetail()"></app-detail>
         </div>
       </div>
     </div>
-
-    <!-- Post Content -->
-    <div class="post-content card-body py-4 px-4">
-      <h4 class="card-title fw-bold mb-3 text-dark">{{ post.title }}</h4>
-      <p class="card-text text-dark mb-3 lh-lg">
-        {{ getPreview(post.content, 200) }}
-       <ng-container *ngIf="isLongContent(post.content, 200)">
-        <a href="javascript:void(0)" 
-           (click)="openPostDetail(post.id)" 
-           class="text-primary fw-semibold ms-1">Read More</a>
-      </ng-container>
-      </p>
-
-      <!-- Tags -->
-      <div class="mb-2 font-size-1">
-        <span class="badge rounded-pill bg-success text-dark me-2 mb-2 px-3 py-2">#WebDev</span>
-        <span class="badge rounded-pill bg-primary text-dark me-2 mb-2 px-3 py-2">#Technology</span>
-        <span class="badge rounded-pill bg-danger text-dark me-2 mb-2 px-3 py-2">#Programming</span>
-        <span class="badge rounded-pill bg-warning text-dark me-2 mb-2 px-3 py-2">#Angular</span>
-      </div>
-    </div>
-
-    <!-- Tooltip -->
-    <div class="copy-tooltip small text-success text-center fw-semibold py-2 bg-light" [id]="'tooltip-' + post.id"
-      style="display: none;">
-      <i class="bi bi-check-circle-fill me-1"></i>Link copied to clipboard!
-    </div>
-  </div>
-</div>
-
-<ng-template #noPosts>
-  <div class="text-center my-5 py-5">
-    <div class="mb-4">
-      <i class="bi bi-file-text display-4 text-light bg-secondary rounded-circle p-4"></i>
-    </div>
-    <h4 class="fw-semibold text-dark mb-2">No posts yet</h4>
-    <p class="text-muted mb-4">No Post Yet</p>
-  </div>
-</ng-template>
-
-<!-- Post Detail Modal -->
-<div class="modal fade show d-block" *ngIf="selectedPostId">
-  <!-- Backdrop (click to close) -->
-  <div class="modal-backdrop fade show" 
-       style="background: rgba(0,0,0,0.6);" 
-       (click)="closePostDetail()"></div>
-
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content border-0 shadow-lg position-relative">
-
-      <!-- Floating Close Icon -->
-      <button type="button" 
-              class="btn-close position-absolute top-0 end-0 m-3" 
-              aria-label="Close" 
-              (click)="closePostDetail()"></button>
-
-      <!-- Render detail component -->
-      <app-detail [postId]="selectedPostId" (close)="closePostDetail()"></app-detail>
-
-    </div>
-  </div>
-</div>
+  }

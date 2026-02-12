@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
@@ -9,7 +9,7 @@ import { RouterModule } from '@angular/router';
   selector: 'app-register',
   templateUrl: './register.component.html',
   standalone: true,
-  imports:[CommonModule,FormsModule,ReactiveFormsModule,HttpClientModule,RouterModule]
+  imports: [FormsModule, ReactiveFormsModule, HttpClientModule, RouterModule]
 })
 export class RegisterComponent {
   registerData = {

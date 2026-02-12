@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+
 import { Router } from '@angular/router';
 import { PostService } from '../../Services/post-service.service';
 import { Post } from '../../Services/post-service.service';
@@ -9,7 +9,7 @@ import { Post } from '../../Services/post-service.service';
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.css'],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule]
+  imports: [ReactiveFormsModule]
 })
 export class CreateComponent {
 
