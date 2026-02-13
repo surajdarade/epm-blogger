@@ -1,13 +1,14 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PostService {
 
-  private baseUrl = 'https://localhost:7002/api/Posts';
+  private baseUrl = `${environment.apiUrl}/Posts`;
 
   constructor(private http: HttpClient) { }
 
@@ -18,13 +19,14 @@ export class PostService {
   getAllPosts(): Observable<any[]> {
     return this.http.get<any[]>(this.baseUrl);
   }
+
   getAllPostsByUserId(userId: number): Observable<any[]> {
-    return this.http.get<any[]>(this.baseUrl + "/user/" + userId);
+    return this.http.get<any[]>(`${this.baseUrl}/user/${userId}`);
   }
+
   createPost(post: Post): Observable<Post> {
     return this.http.post<Post>(this.baseUrl, post);
   }
-
 }
 
 export interface Post {
