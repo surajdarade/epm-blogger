@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://epm-blogger.azurewebsites.net'
+  apiUrl: 'https://epm-blogger.azurewebsites.net/api'
 };
